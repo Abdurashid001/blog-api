@@ -30,9 +30,13 @@ class PostController extends Controller
             'content' => 'required|min:5',
         ]);
 
-        $post = Post::create($request->only('title','content'));
+        $post = Post::create([
+        'title' => $request->title,
+        'content' => $request->content,
+        'user_id' => auth()->id(), // ✅ user_id post egasini chiqaradi!
+    ]);
 
-        return new PostResource($post);
+    return new PostResource($post);
     }
 
     // GET /api/posts/{id}
