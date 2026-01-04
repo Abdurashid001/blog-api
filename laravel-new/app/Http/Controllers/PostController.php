@@ -25,16 +25,31 @@ class PostController extends Controller
     // POST /api/posts
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|min:3',
-            'content' => 'required|min:5',
-        ]);
+    //     $request->validate([
+    //         'title' => 'required|min:3',
+    //         'content' => 'required|min:5',
+    //     ]);
 
-        $post = Post::create([
-        'title' => $request->title,
-        'content' => $request->content,
-        'user_id' => auth()->id(), // ✅ user_id post egasini chiqaradi!
+    //     $post = Post::create([
+    //     'title' => $request->title,
+    //     'content' => $request->content,
+    //     'user_id' => auth()->id(), // ✅ user_id post egasini chiqaradi!
+    // ]);
+
+    // return new PostResource($post);
+
+    if (!auth()->user()->is_admin) {
+        return response()->json([
+            'message' => 'Only admin can create posts'
+        ], 403);
+    }
+
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
     ]);
+
+    $post = auth()->user()->posts()->create($validated);
 
     return new PostResource($post);
     }

@@ -10,10 +10,12 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'user_id',
+        
     ];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 }
+// token: 6|HloNlSaEpHMYRwJKv3Iepdo0smBtkig2nz2du5YW9cdfac50
+// author: Abuoka
