@@ -2,6 +2,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminLogController;
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -13,6 +16,18 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::middleware(['auth:sanctum', 'admin'])
     ->post('/posts', [PostController::class, 'store']);
+
+Route::middleware(['auth:sanctum', 'admin'])
+    ->patch('/admins/{id}/revoke', [AdminController::class, 'revoke']);
+
+Route::middleware(['auth:sanctum', 'admin'])
+    ->delete('/admins/{id}', [AdminController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum', 'super_admin'])
+    ->delete('/admins/{id}', [AdminController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum', 'super_admin'])
+    ->get('/admin-logs', [AdminLogController::class, 'index']);
 
 
 Route::apiResource('posts', PostController::class);

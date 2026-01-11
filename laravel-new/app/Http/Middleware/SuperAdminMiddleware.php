@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user() || !$request->user()->is_admin) {
+        if (! $request->user() || ! $request->user()->is_super_admin) {
             return response()->json([
-            'message' => 'Forbidden. Admin only.'
-        ], 403);
-    }
+                'message' => 'Forbidden. Super admin only.'
+            ], 403);
+        }
 
-    return $next($request);
+        return $next($request);
     }
 }

@@ -17,5 +17,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 }
-// token: 6|HloNlSaEpHMYRwJKv3Iepdo0smBtkig2nz2du5YW9cdfac50
-// author: Abuoka
+// id: 4,
+// name: "Temp Admin",
+// email: "tempadmin@test.com",
+// token: "9|pQ51YoMdpjMA9h0HHvpjrIVUzUkeTabolYVSct7ub7fb7a40"

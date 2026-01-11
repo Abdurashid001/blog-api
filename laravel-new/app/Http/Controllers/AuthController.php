@@ -33,10 +33,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // faqat hozirgi tokenni o‘chiradi
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message' => 'Logout qilindi'
+            'message' => 'Logged out successfully'
         ]);
     }
 }

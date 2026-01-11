@@ -75,6 +75,11 @@ class PostController extends Controller
     {
         // Post::destroy($id);
         Post::findOrFail($id)->delete();
+        admin_log(
+        'DELETE_POST',
+        'post_id='.$post->id,
+        'Post deleted'
+    );
 
         return response()->json(['message' => 'Deleted']);
     }
